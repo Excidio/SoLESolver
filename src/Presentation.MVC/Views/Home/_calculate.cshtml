@@ -1,0 +1,12 @@
+﻿@if (ViewBag.SoLE != null)
+{
+    <h3>Результат:</h3>
+    for(var i = 0; i < ViewBag.SoLE.Length; i++)
+    {
+        <div><b><i>@string.Format("x{0} = {1}", i + 1, ViewBag.SoLE[i])</i></b></div>
+    }
+}
+else
+{
+    <h3>Результат не найден!</h3>
+}

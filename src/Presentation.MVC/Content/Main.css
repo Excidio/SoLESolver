@@ -1,0 +1,17 @@
+﻿* {
+    text-align: center;
+}
+
+#form {
+    border: 4px double black; /* Параметры границы */
+    background: #a1a1a1; /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#sole > div > input {
+    margin: 5px;
+    width: 7%;
+}
