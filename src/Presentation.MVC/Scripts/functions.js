@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     $("select").change(function () {
         $('#sole').html(createSole(this.value));
+        $('#result').html('');
     });
 });
 
