@@ -30,12 +30,14 @@ namespace Services.SoLEAlgorithms.ImplementationSoLEParserStrategy
         public bool Parse(string[] equations)
         {
             Variables = InitVariables(equations);
-            if (Variables.Count > 0)
+            if (Variables.Count == equations.Count())
             {
                 InitSoLE(equations);
+
+                return SoLE.Length > 0;
             }
 
-            return Variables.Count() > 0 && SoLE.Length > 0;
+            return false;
         }
 
         private LinkedList<string> InitVariables(string[] equations)
