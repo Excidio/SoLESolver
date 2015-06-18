@@ -1,18 +1,22 @@
 ﻿using NUnit.Framework;
 using Services;
-using Services.SoLEAlgorithms.Implementation;
+using Services.SoLEAlgorithms.ImplementationSoLESolverStrategy;
 
 namespace Tests
 {
-    public class SoLESolverServiceTest
+    public class SoLESolverServiceWithGaussianEliminationStrategyTest
     {
+        private readonly SoLESolverService _SoleSolverService;
+
+        public SoLESolverServiceWithGaussianEliminationStrategyTest()
+        {
+            _SoleSolverService = new SoLESolverService(new GaussianEliminationStrategy());
+        }
+
         [Test]
-        public void TestSolverWith2Param()
+        public void TestSolveWith2Param()
         {
             //Arrange
-            //Основная задача
-            var _SoleSolverService = new SoLESolverService(new GaussianEliminationStrategy());
-
             double[,] array = {
  				{3, -2, 4},
  				{1,  3, 5}
@@ -23,17 +27,13 @@ namespace Tests
             var actResult = _SoleSolverService.SolveSoLE(array);
 
             //  Assert
-            //Проверка статуса основной задачи
             Assert.AreEqual(expResult, actResult);
         }
 
         [Test]
-        public void TestSolverWith3Param()
+        public void TestSolveWith3Param()
         {
             //Arrange
-            //Основная задача
-            var _SoleSolverService = new SoLESolverService(new GaussianEliminationStrategy());
-
             double[,] array = {
  				{ 2,  1, -1,  8},
  				{-3, -1,  2, -11},
@@ -45,17 +45,13 @@ namespace Tests
             var actResult = _SoleSolverService.SolveSoLE(array);
 
             //  Assert
-            //Проверка статуса основной задачи
             Assert.AreEqual(expResult, actResult);
         }
 
         [Test]
-        public void TestSolverWith4Param()
+        public void TestSolveWith4Param()
         {
             //Arrange
-            //Основная задача
-            var _SoleSolverService = new SoLESolverService(new GaussianEliminationStrategy());
-
             double[,] array = {
  				{ -2,  -1,  8,   1, -17},
  				{  1,  -3, -5,   9,  86},
@@ -68,8 +64,31 @@ namespace Tests
             var actResult = _SoleSolverService.SolveSoLE(array);
 
             //  Assert
-            //Проверка статуса основной задачи
             Assert.AreEqual(expResult, actResult);
+        }
+
+        [Test]
+        public void TestSolveWith8Param()
+        {
+            //Arrange
+            double[,] array = {
+                    { 1, 1, 1, 1, 1, 1, 1, 1, 36},
+                    { 0, 1, 1, 1, 1, 1, 1, 1, 28},
+                    { 0, 0, 1, 1, 1, 1, 1, 1, 21},
+                    { 0, 0, 0, 1, 1, 1, 1, 1, 15},
+                    { 0, 0, 0, 0, 1, 1, 1, 1, 10},
+                    { 0, 0, 0, 0, 0, 1, 1, 1, 6},
+                    { 0, 0, 0, 0, 0, 0, 1, 1, 3},
+                    { 0, 0, 0, 0, 0, 0, 0, 1, 1},
+            };
+
+            double[] expResult = { 8, 7, 6, 5, 4, 3, 2, 1 };
+
+            // Act
+            var actResult = _SoleSolverService.SolveSoLE(array);
+
+            //  Assert
+            Assert.AreEqual(expResult, actResult);  
         }
     }
 }

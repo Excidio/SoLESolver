@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\GaussianEliminationStrategy.cs" />
+    <Compile Include="ImplementationSoLESolverStrategy\GaussianEliminationStrategy.cs" />
+    <Compile Include="ImplementationSoLEParserStrategy\MyParseStrategy.cs" />
+    <Compile Include="ISoLEParserStrategy.cs" />
     <Compile Include="ISoLESolverStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

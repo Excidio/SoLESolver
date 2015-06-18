@@ -2,6 +2,13 @@
     text-align: center;
 }
 
+textarea {
+   resize: none;
+   width: 80%;
+   height: 200px;
+   font-size: 14px;
+}
+
 #form {
     border: 4px double black; /* Параметры границы */
     background: #a1a1a1; /* Цвет фона */

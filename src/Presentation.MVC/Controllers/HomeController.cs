@@ -1,5 +1,6 @@
 ﻿using Services;
-using Services.SoLEAlgorithms.Implementation;
+using Services.SoLEAlgorithms.ImplementationSoLEParserStrategy;
+using Services.SoLEAlgorithms.ImplementationSoLESolverStrategy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,14 @@ namespace Presentation.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly SoLESolverService _SoLEService;
+        private readonly SoLESolverService _SoLESolverService;
+        private readonly SoLEParserService _SoLEParserService;
 
         public HomeController()
         {
-            _SoLEService = new SoLESolverService(new GaussianEliminationStrategy());
+            _SoLESolverService = new SoLESolverService(new GaussianEliminationStrategy());
+            _SoLEParserService = new SoLEParserService(new MyParseStrategy());
         }
-        //
-        // GET: /Home/
 
         public ActionResult Index()
         {
@@ -25,25 +26,18 @@ namespace Presentation.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Calculate(double[][] sole)
+        public ActionResult Calculate(string sole)
         {
-            if (sole != null)
+            if (!string.IsNullOrEmpty(sole))
             {
-                var weight = sole.Length;
-                var height = sole.Max(x => x.Length);
-
-                double[,] arraySole = new double[weight, height];
-                for (var i = 0; i < weight; i++)
+                var equations = sole.Trim().ToLower().Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                if (_SoLEParserService.Parse(equations))
                 {
-                    for (var j = 0; j < sole[i].Length; j++)
-                    {
-                        arraySole[i, j] = sole[i][j];
-                    }
+                    ViewBag.SoLENumbers = _SoLESolverService.SolveSoLE(_SoLEParserService.GetExtractedSoLENumbers());
+                    ViewBag.SoLEVariables = _SoLEParserService.GetExtractedSoLEVariables().ToArray();
+
+                    return PartialView("_calculate");
                 }
-
-                ViewBag.SoLE = _SoLEService.SolveSoLE(arraySole);
-
-                return PartialView("_calculate");
             }
 
             return Content("Ошибка ввода!");

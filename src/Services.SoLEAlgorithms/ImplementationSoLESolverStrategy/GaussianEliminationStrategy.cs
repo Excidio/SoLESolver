@@ -1,4 +1,4 @@
-﻿namespace Services.SoLEAlgorithms.Implementation
+﻿namespace Services.SoLEAlgorithms.ImplementationSoLESolverStrategy
 {
     public class GaussianEliminationStrategy : ISoLESolverStrategy
     {

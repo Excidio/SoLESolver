@@ -7,26 +7,8 @@
 @using (Ajax.BeginForm("Calculate", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "result" }))
 {
     <div id="form">
-        <div>
-            <span>Количество неизвестных величин в системе: </span>
-            <select>
-                <option>2</option>
-                <option selected>3</option>
-                <option>4</option>
-            </select>
-        </div>
-
-        <div id="sole"></div>
-        <input type="submit" value="Решить систему линейных уравнений" />
+        <textarea id="sole" name="sole"></textarea>
+        <input type="submit" value="Решить системы линейный уравнений" />
         <div id="result"></div>
     </div>
-}
-
-@section Scripts
-{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sole').append(createSole(3));
-        });
-    </script>
 }
