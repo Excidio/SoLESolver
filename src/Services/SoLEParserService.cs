@@ -14,6 +14,11 @@ namespace Services
 
         public bool Parse(string[] equations)
         {
+            for (int i = 0; i < equations.Length; i++)
+            {
+                equations[i] = equations[i].Replace(" ", string.Empty).ToLower();
+            }
+
             var result = _SoLEParserStrategy.Parse(equations);
 
             return result;

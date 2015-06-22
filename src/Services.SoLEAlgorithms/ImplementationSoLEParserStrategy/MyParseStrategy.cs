@@ -46,7 +46,8 @@ namespace Services.SoLEAlgorithms.ImplementationSoLEParserStrategy
 
             foreach (var equation in equations)
             {
-                var equationsMatches = Regex.Matches(equation.Trim(), @"\D+\d*(\+|-|=)");
+
+                var equationsMatches = Regex.Matches(equation, @"[A-Z,a-z,А-Я,а-я]{1}[A-Z,a-z,А-Я,а-я,0-9]*(\+|\-|=){1}");
                 foreach (var pm in equationsMatches)
                 {
                     var variable = pm.ToString();
@@ -97,7 +98,7 @@ namespace Services.SoLEAlgorithms.ImplementationSoLEParserStrategy
                 }
 
                 //добавление результата в конец
-                var lastValue = Regex.Match(equation, @"(=(\+|-*)\d*\d)").ToString();
+                var lastValue = Regex.Match(equation, @"=(\+|-*)\d*").ToString();
                 if (!string.IsNullOrEmpty(lastValue))
                 {
                     lastValue = lastValue.Substring(1, lastValue.Length - 1);
