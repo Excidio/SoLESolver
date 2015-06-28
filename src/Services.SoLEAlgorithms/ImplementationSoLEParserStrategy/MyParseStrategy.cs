@@ -33,7 +33,6 @@ namespace Services.SoLEAlgorithms.ImplementationSoLEParserStrategy
             if (Variables.Count == equations.Count())
             {
                 InitSoLE(equations);
-
                 return SoLE.Length > 0;
             }
 
@@ -46,12 +45,12 @@ namespace Services.SoLEAlgorithms.ImplementationSoLEParserStrategy
 
             foreach (var equation in equations)
             {
-
-                var equationsMatches = Regex.Matches(equation, @"[A-Z,a-z,А-Я,а-я]{1}[A-Z,a-z,А-Я,а-я,0-9]*(\+|\-|=){1}");
-                foreach (var pm in equationsMatches)
+                var equationMatches = Regex.Matches(equation, @"[A-Za-zА-Яа-я]{1}[A-Za-zА-Яа-я0-9]*(\+|\-|=){1}");
+                
+                foreach (var equationMatch in equationMatches)
                 {
-                    var variable = pm.ToString();
-                    variable = variable.Substring(0, pm.ToString().Length - 1);
+                    var variable = equationMatch.ToString();
+                    variable = variable.Substring(0, variable.Length - 1);
 
                     if (!variables.Any(v => v == variable))
                     {
@@ -70,18 +69,17 @@ namespace Services.SoLEAlgorithms.ImplementationSoLEParserStrategy
 
             SoLE = new double[width, height];
 
-            int i = 0;
-            foreach (var equation in equations)
+            for (int i = 0; i < equations.Length; i++)
             {
                 int j = 0;
                 //проход по всем переменным
-                foreach (var sv in Variables)
+                foreach (var variable in Variables)
                 {
-                    var a = Regex.Match(equation, string.Format(@"(\+|-|=?)(\d*)({0})", sv)).ToString();
+                    var variableMatch = Regex.Match(equations[i], string.Format(@"(\+|-|=?)\d*(\.|,)*\d*({0})", variable)).ToString();
 
-                    if (!string.IsNullOrEmpty(a))
+                    if (!string.IsNullOrEmpty(variableMatch))
                     {
-                        var stringNumber = a.Substring(0, a.Length - sv.Length);
+                        var stringNumber = variableMatch.Substring(0, variableMatch.Length - variable.Length).Replace(".", ",");
                         double number;
 
                         if (double.TryParse(stringNumber, out number))
@@ -98,14 +96,12 @@ namespace Services.SoLEAlgorithms.ImplementationSoLEParserStrategy
                 }
 
                 //добавление результата в конец
-                var lastValue = Regex.Match(equation, @"=(\+|-*)\d*").ToString();
+                var lastValue = Regex.Match(equations[i], @"=(\+|-*)\d*").ToString();
                 if (!string.IsNullOrEmpty(lastValue))
                 {
                     lastValue = lastValue.Substring(1, lastValue.Length - 1);
                     SoLE[i, j] = double.Parse(lastValue);
                 }
-                i++;
-                j = 0;
             }
         }
     }

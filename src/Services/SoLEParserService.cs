@@ -19,9 +19,7 @@ namespace Services
                 equations[i] = equations[i].Replace(" ", string.Empty).ToLower();
             }
 
-            var result = _SoLEParserStrategy.Parse(equations);
-
-            return result;
+            return _SoLEParserStrategy.Parse(equations);
         }
 
         public double[,] GetExtractedSoLENumbers()

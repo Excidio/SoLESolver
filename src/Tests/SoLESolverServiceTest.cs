@@ -14,6 +14,38 @@ namespace Tests
         }
 
         [Test]
+        public void TestIntSolveWith1Param()
+        {
+            //Arrange
+            double[,] array = {
+ 				{1, 4},
+ 		    };
+            double[] expResult = { 4 };
+
+            // Act
+            var actResult = _SoleSolverService.SolveSoLE(array);
+
+            //  Assert
+            Assert.AreEqual(expResult, actResult);
+        }
+
+        [Test]
+        public void TestDoubleSolveWith1Param()
+        {
+            //Arrange
+            double[,] array = {
+ 				{0.5, 4},
+ 		    };
+            double[] expResult = { 8 };
+
+            // Act
+            var actResult = _SoleSolverService.SolveSoLE(array);
+
+            //  Assert
+            Assert.AreEqual(expResult, actResult);
+        }
+
+        [Test]
         public void TestSolveWith2Param()
         {
             //Arrange
@@ -40,6 +72,42 @@ namespace Tests
  				{-2,  1,  2, -3}
  		    };
             double[] expResult = { 2, 3, -1 };
+
+            // Act
+            var actResult = _SoleSolverService.SolveSoLE(array);
+
+            //  Assert
+            Assert.AreEqual(expResult, actResult);
+        }
+
+        [Test]
+        public void Test2SolveWith3Param()
+        {
+            //Arrange
+            double[,] array = {
+ 				{ 8,  7,  3,  18},
+ 				{-7, -4, -4, -11},
+ 				{-6,  5, -4, -15}
+ 		    };
+            double[] expResult = { 5, -1, -5 };
+
+            // Act
+            var actResult = _SoleSolverService.SolveSoLE(array);
+
+            //  Assert
+            Assert.AreEqual(expResult, actResult);
+        }
+
+        [Test]
+        public void Test3SolveWith3Param()
+        {
+            //Arrange
+            double[,] array = {
+ 				{1, 1, 1, 6},
+ 				{0, 0, 1, 1},
+ 				{0, 1, 0, 2}
+ 		    };
+            double[] expResult = { 3, 2, 1 };
 
             // Act
             var actResult = _SoleSolverService.SolveSoLE(array);
