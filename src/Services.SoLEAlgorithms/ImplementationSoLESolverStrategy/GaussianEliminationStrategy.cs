@@ -14,20 +14,21 @@
                 {
                     if (SoLE[i, i] != 1)
                     {
-                        var row = getBestRow(SoLE, i);
+                        var row = getBestRowIdentity(SoLE, i);
                         if (row == -1)
                             return null;
                         if (i != row)
                             exchangeRow(SoLE, i, row);
                     }
-                   
-                    for (int j = i + 1; j < width; j++)
+
+                    var a = SoLE[i, i];
+                    for (int j = i + 1; j < width; j++)//вычитание i-ой строки из последующий нижних строк
                     {
                         var b = SoLE[j, i];
                         if (b != 0)
                         {
-                            for (int k = i; k < width + 1; k++)
-                                SoLE[j, k] = SoLE[j, k] * SoLE[i, i] - SoLE[i, k] * b;
+                            for (int k = i; k < width + 1; k++)//вычисление всех элементов в строке j
+                                SoLE[j, k] = SoLE[j, k] * a - SoLE[i, k] * b;
                         }
                     }
                 }
@@ -71,7 +72,7 @@
         /// <param name="SoLE">Система уравнений</param>
         /// <param name="begin">Идентификатор текущей строки</param>
         /// <returns>Возвращает идентификатор лучшей строки, -1 в случае, если нет строк или не найдено не нулевое значение</returns>
-        private int getBestRow(double[,] SoLE, int begin)
+        private int getBestRowIdentity(double[,] SoLE, int begin)
         {
             var result = SoLE[begin, begin] == 0 ? - 1 : begin;
 
@@ -81,7 +82,6 @@
                 {
                     return i;
                 }
-
                 else if (result == -1 && SoLE[i, begin] != 0)
                 {
                     result = i;
